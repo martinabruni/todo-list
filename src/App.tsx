@@ -1,5 +1,5 @@
-import TaskList from "./Components/Buttons/TaskList";
 import Header from "./Components/Header";
+import TaskList from "./Components/Tasks/TaskList";
 import "./styles.css";
 
 export default function App() {

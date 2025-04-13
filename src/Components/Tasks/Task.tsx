@@ -1,5 +1,5 @@
-import CompleteButton from "./Buttons/CompleteButton";
-import DeleteButton from "./Buttons/DeleteButton";
+import CompleteButton from "../Buttons/CompleteButton";
+import DeleteButton from "../Buttons/DeleteButton";
 
 interface ITaskProps {
   task: { name: string; status: string };

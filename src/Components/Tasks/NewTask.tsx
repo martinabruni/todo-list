@@ -1,4 +1,4 @@
-import AddButton from "./Buttons/AddButton";
+import AddButton from "../Buttons/AddButton";
 
 interface NewTaskProps {
   addTask: () => boolean;

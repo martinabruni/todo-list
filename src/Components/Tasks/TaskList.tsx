@@ -1,7 +1,7 @@
 import { useState } from "react";
-import NewTask from "../NewTask";
-import Task from "../Task";
-import { TaskStatus } from "./Status";
+import NewTask from "./NewTask";
+import Task from "./Task";
+import { TaskStatus } from "../Buttons/Status";
 
 export default function TaskList() {
   const [newTask, setNewTask] = useState<string>("");
@@ -18,8 +18,8 @@ export default function TaskList() {
     console.info("Adding task:", newTask);
 
     setTaskList((prev) => [
-      ...prev,
       { name: newTask, status: TaskStatus.Open },
+      ...prev,
     ]);
     setNewTask("");
 
@@ -52,15 +52,22 @@ export default function TaskList() {
     <>
       <NewTask addTask={addTask} setNewTask={setNewTask} newTask={newTask} />
       <ul className="task-list">
-        {taskList.map((task, i) => (
-          <Task
-            key={i}
-            task={task}
-            removeTask={removeTask}
-            index={i}
-            toggleTaskStatus={toggleTaskStatus}
-          />
-        ))}
+        {taskList
+          .map((task, i) => (
+            <Task
+              key={i}
+              task={task}
+              removeTask={removeTask}
+              index={i}
+              toggleTaskStatus={toggleTaskStatus}
+            />
+          ))
+          .sort((a, b) =>
+            a.props.task.status === TaskStatus.Open &&
+            b.props.task.status !== TaskStatus.Open
+              ? -1
+              : 0
+          )}
       </ul>
     </>
   );
