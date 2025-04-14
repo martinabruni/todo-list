@@ -14,9 +14,7 @@ export default function CompleteButton(props: IButtonProps) {
     <button
       className={`btn ${statusStyle}`}
       onClick={() => {
-        console.info("Task status updated:", statusStyle);
         props.onClick();
-
         const newStatus =
           statusStyle === STATUS.COMPLETED ? STATUS.OPEN : STATUS.COMPLETED;
         setStatusStyle(newStatus);

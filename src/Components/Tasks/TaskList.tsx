@@ -1,20 +1,17 @@
 import { useState } from "react";
-import NewTask from "./NewTask";
+import Input from "./Input";
 import Task from "./Task";
 import { TaskObject } from "./TaskObject";
-import { STATUS } from "../utils";
 
 export default function TaskList() {
-  const [newTask, setNewTask] = useState<TaskObject>(new TaskObject());
   const [tasks, setTasks] = useState<TaskObject[]>([]);
 
-  function addTask(): boolean {
+  function addTask(newTask: TaskObject): boolean {
     if (newTask.name === "") {
       console.warn("No task to add");
       return false;
     }
     setTasks((prev) => [newTask, ...prev]);
-    setNewTask(new TaskObject());
     console.info("Task added:", newTask);
     return true;
   }
@@ -24,40 +21,18 @@ export default function TaskList() {
     console.info("Task removed:", id);
   }
 
-  function toggleStatus(id: number): void {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              status:
-                task.status === STATUS.OPEN ? STATUS.COMPLETED : STATUS.OPEN,
-            }
-          : task
-      )
-    );
-  }
-
   return (
     <>
-      <NewTask addTask={addTask} setNewTask={setNewTask} newTask={newTask} />
+      <Input addTask={addTask} />
       <ul className="task-list">
-        {tasks
-          .map((task) => (
-            <Task
-              key={task.id}
-              task={task}
-              removeTask={removeTask}
-              id={task.id}
-              toggleTaskStatus={toggleStatus}
-            />
-          ))
-          .sort((a, b) =>
-            a.props.task.status === STATUS.OPEN &&
-            b.props.task.status !== STATUS.OPEN
-              ? -1
-              : 0
-          )}
+        {tasks.map((task) => (
+          <Task
+            key={task.id}
+            task={task}
+            removeTask={removeTask}
+            id={task.id}
+          />
+        ))}
       </ul>
     </>
   );
