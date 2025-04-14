@@ -20,6 +20,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 /* Outer container holding the to-do list */
@@ -169,4 +170,25 @@ input:focus {
 
 .btn:hover i {
   color: var(--primary-color);
+}
+
+/* Responsive tweaks for mobile */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  input {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .task-label {
+    font-size: 0.95rem;
+  }
+
+  .todo-list-container {
+    width: 95%;
+    padding: 15px;
+  }
 }
