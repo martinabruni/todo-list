@@ -6,26 +6,26 @@ import { STATUS } from "../utils";
 
 export default function TaskList() {
   const [newTask, setNewTask] = useState<TaskObject>(new TaskObject());
-  const [taskList, setTaskList] = useState<TaskObject[]>([]);
+  const [tasks, setTasks] = useState<TaskObject[]>([]);
 
   function addTask(): boolean {
     if (newTask.name === "") {
       console.warn("No task to add");
       return false;
     }
-    setTaskList((prev) => [newTask, ...prev]);
+    setTasks((prev) => [newTask, ...prev]);
     setNewTask(new TaskObject());
     console.info("Task added:", newTask);
     return true;
   }
 
   function removeTask(id: number): void {
-    setTaskList((prev) => prev.filter((task) => task.id !== id));
+    setTasks((prev) => prev.filter((task) => task.id !== id));
     console.info("Task removed:", id);
   }
 
   function toggleStatus(id: number): void {
-    setTaskList((prev) =>
+    setTasks((prev) =>
       prev.map((task) =>
         task.id === id
           ? {
@@ -42,7 +42,7 @@ export default function TaskList() {
     <>
       <NewTask addTask={addTask} setNewTask={setNewTask} newTask={newTask} />
       <ul className="task-list">
-        {taskList
+        {tasks
           .map((task) => (
             <Task
               key={task.id}
