@@ -6,7 +6,6 @@ import { STATUS } from "../utils";
 
 interface ITaskProps {
   task: TaskObject;
-  removeTask: (id: number) => void;
   updateTasks: (callback: (prev: TaskObject[]) => TaskObject[]) => void;
 }
 
@@ -16,22 +15,33 @@ export default function Task(props: ITaskProps) {
       <p className="task-label">{props.task.name}</p>
       <CompleteButton
         onClick={() => {
-          const updatedStatus =
-            props.task.status == STATUS.COMPLETED
-              ? STATUS.OPEN
-              : STATUS.COMPLETED;
+          const updatedTask = {
+            ...props.task,
+            status:
+              props.task.status == STATUS.COMPLETED
+                ? STATUS.OPEN
+                : STATUS.COMPLETED,
+          };
           props.updateTasks((prev) => {
             const newTasks = prev.map((task) =>
-              task.id === props.task.id
-                ? { ...task, status: updatedStatus }
-                : task
+              task.id === props.task.id ? updatedTask : task
             );
-            console.info("Task status updated:", props.task);
+            console.info("Task status updated:", updatedTask);
             return newTasks;
           });
         }}
       />
-      <DeleteButton onClick={() => props.removeTask(props.task.id)} />
+      <DeleteButton
+        onClick={() => {
+          props.updateTasks((prev) => {
+            const updatedTasks = prev.filter(
+              (task) => task.id !== props.task.id
+            );
+            console.info("Task removed:", props.task.id);
+            return updatedTasks;
+          });
+        }}
+      />
     </li>
   );
 }

@@ -3,7 +3,7 @@ import AddButton from "../Buttons/AddButton";
 import { TaskObject } from "./TaskObject";
 
 interface IInputProps {
-  addTask: (task: TaskObject) => boolean;
+  addTask: (callback: (prev: TaskObject[]) => TaskObject[]) => void;
 }
 
 export default function Input(props: IInputProps) {
@@ -22,7 +22,17 @@ export default function Input(props: IInputProps) {
       />
       <AddButton
         onClick={() => {
-          props.addTask(new TaskObject(value));
+          props.addTask((prev) => {
+            if (value === "") {
+              console.warn("No task to add");
+              return prev;
+            }
+            const newTask = new TaskObject(value);
+            const newTasks = [newTask, ...prev];
+            console.info("Task added:", newTask);
+            console.info("New Tasks:", newTasks);
+            return newTasks;
+          });
           setValue("");
         }}
       />
