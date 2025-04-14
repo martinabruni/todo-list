@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import CompleteButton from "../Buttons/CompleteButton";
 import DeleteButton from "../Buttons/DeleteButton";
 import { TaskObject } from "./TaskObject";
