@@ -1,14 +1,12 @@
 import { useState } from "react";
 import NewTask from "./NewTask";
 import Task from "./Task";
-import { TaskStatus } from "../TaskStatus";
 import { TaskObject } from "./TaskObject";
+import { STATUS } from "../utils";
 
 export default function TaskList() {
   const [newTask, setNewTask] = useState<TaskObject>(new TaskObject());
-  const [taskList, setTaskList] = useState<{ name: string; status: string }[]>(
-    []
-  );
+  const [taskList, setTaskList] = useState<TaskObject[]>([]);
 
   function addTask(): boolean {
     if (newTask.name === "") {
@@ -21,21 +19,19 @@ export default function TaskList() {
     return true;
   }
 
-  function removeTask(index: number): void {
-    setTaskList((prev) => prev.filter((_, i) => i !== index));
-    console.info("Task removed:", taskList[index]);
+  function removeTask(id: number): void {
+    setTaskList((prev) => prev.filter((task) => task.id !== id));
+    console.info("Task removed:", id);
   }
 
-  function toggleTaskStatus(index: number): void {
+  function toggleTaskStatus(id: number): void {
     setTaskList((prev) =>
-      prev.map((task, i) =>
-        i === index
+      prev.map((task) =>
+        task.id === id
           ? {
               ...task,
               status:
-                task.status === TaskStatus.Open
-                  ? TaskStatus.Completed
-                  : TaskStatus.Open,
+                task.status === STATUS.OPEN ? STATUS.COMPLETED : STATUS.OPEN,
             }
           : task
       )
@@ -47,18 +43,18 @@ export default function TaskList() {
       <NewTask addTask={addTask} setNewTask={setNewTask} newTask={newTask} />
       <ul className="task-list">
         {taskList
-          .map((task, i) => (
+          .map((task) => (
             <Task
-              key={i}
+              key={task.id}
               task={task}
               removeTask={removeTask}
-              index={i}
+              id={task.id}
               toggleTaskStatus={toggleTaskStatus}
             />
           ))
           .sort((a, b) =>
-            a.props.task.status === TaskStatus.Open &&
-            b.props.task.status !== TaskStatus.Open
+            a.props.task.status === STATUS.OPEN &&
+            b.props.task.status !== STATUS.OPEN
               ? -1
               : 0
           )}

@@ -36,7 +36,7 @@ ul {
   align-items: center;
   padding: 5px 3px;
   gap: 5px;
-
+  margin: 0px;
   width: 255px;
   height: 208px;
   overflow-y: auto;
