@@ -24,7 +24,7 @@ export default function TaskList() {
     console.info("Task removed:", id);
   }
 
-  function toggleTaskStatus(id: number): void {
+  function toggleStatus(id: number): void {
     setTaskList((prev) =>
       prev.map((task) =>
         task.id === id
@@ -49,7 +49,7 @@ export default function TaskList() {
               task={task}
               removeTask={removeTask}
               id={task.id}
-              toggleTaskStatus={toggleTaskStatus}
+              toggleTaskStatus={toggleStatus}
             />
           ))
           .sort((a, b) =>
