@@ -1,9 +1,9 @@
 import { JSX, useState } from "react";
 import IButtonProps from "./IButton";
-import { TaskStatus } from "./Status";
+import { TaskStatus } from "../TaskStatus";
 
 export default function CompleteButton(props: IButtonProps) {
-  const [style, setStyle] = useState<string>(TaskStatus.Completed);
+  const [statusStyle, setStatusStyle] = useState<string>(TaskStatus.Completed);
 
   const buttonStyles: Record<TaskStatus, JSX.Element> = {
     [TaskStatus.Completed]: <i className="fa fa-check"></i>,
@@ -12,21 +12,19 @@ export default function CompleteButton(props: IButtonProps) {
 
   return (
     <button
-      className={`btn ${style}`}
+      className={`btn ${statusStyle}`}
       onClick={() => {
-        console.info("Button clicked, current style:", style);
+        console.info("Task status updated:", statusStyle);
         props.onClick();
 
-        if (style === TaskStatus.Completed) {
-          console.info("Switching to Open status");
-          setStyle(TaskStatus.Open);
-        } else {
-          console.info("Switching to Completed status");
-          setStyle(TaskStatus.Completed);
-        }
+        const newStatus =
+          statusStyle === TaskStatus.Completed
+            ? TaskStatus.Open
+            : TaskStatus.Completed;
+        setStatusStyle(newStatus);
       }}
     >
-      {buttonStyles[style as TaskStatus]}
+      {buttonStyles[statusStyle as TaskStatus]}
     </button>
   );
 }

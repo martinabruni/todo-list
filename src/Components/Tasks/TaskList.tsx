@@ -1,28 +1,22 @@
 import { useState } from "react";
 import NewTask from "./NewTask";
 import Task from "./Task";
-import { TaskStatus } from "../Buttons/Status";
+import { TaskStatus } from "../TaskStatus";
+import { TaskObject } from "./TaskObject";
 
 export default function TaskList() {
-  const [newTask, setNewTask] = useState<string>("");
+  const [newTask, setNewTask] = useState<TaskObject>(new TaskObject());
   const [taskList, setTaskList] = useState<{ name: string; status: string }[]>(
     []
   );
 
   function addTask(): boolean {
-    if (newTask === "") {
+    if (newTask.name === "") {
       console.warn("No task to add");
       return false;
     }
-
-    console.info("Adding task:", newTask);
-
-    setTaskList((prev) => [
-      { name: newTask, status: TaskStatus.Open },
-      ...prev,
-    ]);
-    setNewTask("");
-
+    setTaskList((prev) => [newTask, ...prev]);
+    setNewTask(new TaskObject());
     console.info("Task added:", newTask);
     return true;
   }

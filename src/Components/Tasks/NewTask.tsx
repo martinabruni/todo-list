@@ -1,9 +1,10 @@
 import AddButton from "../Buttons/AddButton";
+import { TaskObject } from "./TaskObject";
 
 interface NewTaskProps {
   addTask: () => boolean;
-  newTask: string;
-  setNewTask: (newTask: string) => void;
+  newTask: TaskObject;
+  setNewTask: (newTask: TaskObject) => void;
 }
 
 export default function NewTask(props: NewTaskProps) {
@@ -12,11 +13,11 @@ export default function NewTask(props: NewTaskProps) {
       <input
         onChange={(e) => {
           console.info("Input changed, new value:", e.target.value);
-          props.setNewTask(e.target.value);
+          props.setNewTask(new TaskObject(e.target.value));
         }}
         type="text"
         placeholder="New Task"
-        value={props.newTask}
+        value={props.newTask.name}
       />
       <AddButton onClick={props.addTask} />
     </div>
