@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import CompleteButton from "../Buttons/CompleteButton";
 import DeleteButton from "../Buttons/DeleteButton";
 import { TaskObject } from "./TaskObject";
@@ -7,25 +7,31 @@ import { STATUS } from "../utils";
 interface ITaskProps {
   task: TaskObject;
   removeTask: (id: number) => void;
-  id: number;
+  updateTasks: (callback: (prev: TaskObject[]) => TaskObject[]) => void;
 }
 
 export default function Task(props: ITaskProps) {
-  const [status, setStatus] = useState(props.task.status);
-
   return (
-    <li className={`task-item ${status}`}>
+    <li className={`task-item ${props.task.status}`}>
       <p className="task-label">{props.task.name}</p>
       <CompleteButton
         onClick={() => {
           const updatedStatus =
-            status == STATUS.COMPLETED ? STATUS.OPEN : STATUS.COMPLETED;
-          setStatus(updatedStatus);
-          props.task.status = updatedStatus;
-          console.info("Task status updated:", props.task);
+            props.task.status == STATUS.COMPLETED
+              ? STATUS.OPEN
+              : STATUS.COMPLETED;
+          props.updateTasks((prev) => {
+            const newTasks = prev.map((task) =>
+              task.id === props.task.id
+                ? { ...task, status: updatedStatus }
+                : task
+            );
+            console.info("Task status updated:", props.task);
+            return newTasks;
+          });
         }}
       />
-      <DeleteButton onClick={() => props.removeTask(props.id)} />
+      <DeleteButton onClick={() => props.removeTask(props.task.id)} />
     </li>
   );
 }

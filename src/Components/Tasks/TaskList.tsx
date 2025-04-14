@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "./Input";
 import Task from "./Task";
 import { TaskObject } from "./TaskObject";
+import { STATUS } from "../utils";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState<TaskObject[]>([]);
@@ -11,8 +12,10 @@ export default function TaskList() {
       console.warn("No task to add");
       return false;
     }
-    setTasks((prev) => [newTask, ...prev]);
+    const newTasks = [newTask, ...tasks];
+    setTasks(newTasks);
     console.info("Task added:", newTask);
+    console.info("New Tasks:", newTasks);
     return true;
   }
 
@@ -25,14 +28,17 @@ export default function TaskList() {
     <>
       <Input addTask={addTask} />
       <ul className="task-list">
-        {tasks.map((task) => (
-          <Task
-            key={task.id}
-            task={task}
-            removeTask={removeTask}
-            id={task.id}
-          />
-        ))}
+        {tasks
+          .sort((a, b) => (a.id < b.id ? -1 : 0))
+          .sort((a) => (a.status === STATUS.OPEN ? -1 : 1))
+          .map((task) => (
+            <Task
+              key={task.id}
+              task={task}
+              removeTask={removeTask}
+              updateTasks={setTasks}
+            />
+          ))}
       </ul>
     </>
   );
