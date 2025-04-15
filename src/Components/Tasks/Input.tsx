@@ -15,7 +15,7 @@ export default function Input(props: IInputProps) {
         return prev;
       }
       const newTask = new TaskObject(value);
-      if (newTask.name == "dragonfruit") {
+      if (newTask.name.toLowerCase() == "dragonfruit") {
         console.log("Setting image");
         newTask.image =
           "https://thumbs.dreamstime.com/b/cute-dragon-fruit-mascot-character-illustration-209347531.jpg";
