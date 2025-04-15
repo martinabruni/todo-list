@@ -1,4 +1,4 @@
-import IButtonProps from "./IButton";
+import IButtonProps from "../../Interfaces/IButton";
 
 export default function AddButton(props: IButtonProps) {
   return (

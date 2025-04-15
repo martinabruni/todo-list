@@ -172,7 +172,6 @@ input:focus {
   color: var(--primary-color);
 }
 
-/* Responsive tweaks for mobile */
 @media (max-width: 600px) {
   h1 {
     font-size: 1.5rem;

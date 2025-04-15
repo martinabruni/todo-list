@@ -1,4 +1,5 @@
-import { STATUS, Status } from "../utils";
+import { STATUS } from "../Constants/Status";
+import { Status } from "../Types";
 
 export class TaskObject {
   static class_id: number = 0;

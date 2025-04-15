@@ -1,6 +1,7 @@
 import { JSX, useState } from "react";
-import IButtonProps from "./IButton";
-import { STATUS, Status } from "../utils";
+import IButtonProps from "../../Interfaces/IButton";
+import { STATUS } from "../../Constants/Status";
+import { Status } from "../../Types";
 
 export default function CompleteButton(props: IButtonProps) {
   const [statusStyle, setStatusStyle] = useState<Status>(STATUS.COMPLETED);
@@ -10,16 +11,15 @@ export default function CompleteButton(props: IButtonProps) {
     [STATUS.OPEN]: <i className="fa fa-rotate-left"></i>,
   };
 
+  function handleClick() {
+    props.onClick();
+    const newStatus =
+      statusStyle === STATUS.COMPLETED ? STATUS.OPEN : STATUS.COMPLETED;
+    setStatusStyle(newStatus);
+  }
+
   return (
-    <button
-      className={`btn ${statusStyle}`}
-      onClick={() => {
-        props.onClick();
-        const newStatus =
-          statusStyle === STATUS.COMPLETED ? STATUS.OPEN : STATUS.COMPLETED;
-        setStatusStyle(newStatus);
-      }}
-    >
+    <button className={`btn ${statusStyle}`} onClick={handleClick}>
       {buttonStyles[statusStyle]}
     </button>
   );
