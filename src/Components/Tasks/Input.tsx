@@ -1,9 +1,12 @@
 import { useState } from "react";
 import AddButton from "../Buttons/AddButton";
-import { TaskObject } from "../../Interfaces/TaskObject";
+import { IMAGES } from "../../Constants/Image";
+import { TaskType } from "../../Types";
+import { STATUS } from "../../Constants/Status";
+import { v4 as uuidv4 } from "uuid";
 
 interface IInputProps {
-  addTask: (callback: (prev: TaskObject[]) => TaskObject[]) => void;
+  addTask: (callback: (prev: TaskType[]) => TaskType[]) => void;
 }
 
 export default function Input(props: IInputProps) {
@@ -14,12 +17,14 @@ export default function Input(props: IInputProps) {
       if (value === "") {
         return prev;
       }
-      const newTask = new TaskObject(value);
-      if (newTask.name.toLowerCase() == "dragonfruit") {
-        console.log("Setting image");
-        newTask.image =
-          "https://thumbs.dreamstime.com/b/cute-dragon-fruit-mascot-character-illustration-209347531.jpg";
-      }
+      const newTask: TaskType = {
+        id: uuidv4(),
+        name: value,
+        status: STATUS.OPEN,
+      };
+
+      if (newTask.name.toLowerCase() == "dragonfruit")
+        newTask.image = IMAGES.DRAGONFRUIT;
       const newTasks = [newTask, ...prev];
 
       return newTasks;

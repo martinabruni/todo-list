@@ -1,11 +1,11 @@
 import CompleteButton from "../Buttons/CompleteButton";
 import DeleteButton from "../Buttons/DeleteButton";
-import { TaskObject } from "../../Interfaces/TaskObject";
 import { STATUS } from "../../Constants/Status";
+import { TaskType } from "../../Types";
 
 interface ITaskProps {
-  task: TaskObject;
-  updateTasks: (callback: (prev: TaskObject[]) => TaskObject[]) => void;
+  task: TaskType;
+  updateTasks: (callback: (prev: TaskType[]) => TaskType[]) => void;
 }
 
 export default function Task(props: ITaskProps) {
