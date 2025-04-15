@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import Input from "./Input";
 import Task from "./Task";
 import { STATUS } from "../../Constants/Status";
@@ -6,10 +6,6 @@ import { TaskType } from "../../Types";
 
 export default function TaskList() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
-
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
 
   function renderTasks(): ReactNode {
     return tasks

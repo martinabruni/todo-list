@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AddButton from "../Buttons/AddButton";
-import { IMAGES } from "../../Constants/Image";
 import { TaskType } from "../../Types";
 import { STATUS } from "../../Constants/Status";
 import { v4 as uuidv4 } from "uuid";
@@ -23,10 +22,11 @@ export default function Input(props: IInputProps) {
         status: STATUS.OPEN,
       };
 
-      if (newTask.name.toLowerCase() == "dragonfruit")
-        newTask.image = IMAGES.DRAGONFRUIT;
+      if (newTask.name.toLowerCase().replace(" ", "").includes("dragonfruit")) {
+        newTask.isDragonfruit = true;
+      }
       const newTasks = [newTask, ...prev];
-
+      console.log(newTask);
       return newTasks;
     });
     setValue("");

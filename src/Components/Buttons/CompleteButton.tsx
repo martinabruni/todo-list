@@ -1,12 +1,12 @@
 import { JSX, useState } from "react";
-import IButtonProps from "../../Interfaces/IButton";
-import { Status } from "../../Types";
+import IButtonProps from "../../Interfaces/Props/IButtonProps";
+import { StatusType } from "../../Types";
 import { STATUS } from "../../Constants/Status";
 
 export default function CompleteButton(props: IButtonProps) {
-  const [statusStyle, setStatusStyle] = useState<Status>(STATUS.COMPLETED);
+  const [statusStyle, setStatusStyle] = useState<StatusType>(STATUS.COMPLETED);
 
-  const buttonStyles: Record<Status, JSX.Element> = {
+  const buttonStyles: Record<StatusType, JSX.Element> = {
     [STATUS.COMPLETED]: <i className="fa fa-check"></i>,
     [STATUS.OPEN]: <i className="fa fa-rotate-left"></i>,
   };

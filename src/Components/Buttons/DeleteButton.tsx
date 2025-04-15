@@ -1,4 +1,4 @@
-import IButtonProps from "../../Interfaces/IButton";
+import IButtonProps from "../../Interfaces/Props/IButtonProps";
 
 export default function DeleteButton(props: IButtonProps) {
   return (
