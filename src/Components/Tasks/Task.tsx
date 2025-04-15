@@ -33,7 +33,14 @@ export default function Task(props: ITaskProps) {
 
   return (
     <li className={`task-item ${props.task.status}`}>
-      <p className={`task-label ${props.task.status}`}>{props.task.name}</p>
+      {!props.task.image ? (
+        <p className={`task-label ${props.task.status}`}>{props.task.name}</p>
+      ) : (
+        <p className={`task-label ${props.task.status}`}>
+          <img src={props.task.image} alt="" />
+        </p>
+      )}
+
       <CompleteButton onClick={completeButtonClick} />
       <DeleteButton onClick={deleteButtonClick} />
     </li>

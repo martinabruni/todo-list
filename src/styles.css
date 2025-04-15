@@ -108,7 +108,7 @@ input:focus {
   justify-content: space-between;
   padding: 12px;
   width: 100%;
-  height: fit-content;
+  height: 70px;
   background: var(--background-color);
   box-shadow: 0 2px 6px var(--shadow-color);
   border-radius: 8px;
@@ -190,4 +190,14 @@ input:focus {
     width: 95%;
     padding: 15px;
   }
+}
+
+img {
+  width: 20%;
+  height: 20%;
+}
+
+p {
+  margin: 0px;
+  height: fit-content;
 }
