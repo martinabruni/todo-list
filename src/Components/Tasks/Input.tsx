@@ -26,7 +26,6 @@ export default function Input(props: IInputProps) {
         newTask.isDragonfruit = true;
       }
       const newTasks = [newTask, ...prev];
-      console.log(newTask);
       return newTasks;
     });
     setValue("");
