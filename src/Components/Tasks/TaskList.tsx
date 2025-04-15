@@ -9,7 +9,6 @@ export default function TaskList() {
 
   function renderTasks(): ReactNode {
     return tasks
-      .sort((a, b) => (a.id < b.id ? -1 : 0))
       .sort((a) => (a.status === STATUS.OPEN ? -1 : 1))
       .map((task) => (
         <Task key={task.id.toString()} task={task} updateTasks={setTasks} />
