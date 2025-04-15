@@ -1,7 +1,7 @@
 import { JSX, useState } from "react";
 import IButtonProps from "../../Interfaces/IButton";
-import { STATUS } from "../../Constants/Status";
 import { Status } from "../../Types";
+import { STATUS } from "../../Constants/Status";
 
 export default function CompleteButton(props: IButtonProps) {
   const [statusStyle, setStatusStyle] = useState<Status>(STATUS.COMPLETED);
